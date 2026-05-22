@@ -31,7 +31,6 @@ on post-fs-data
     exec u:r:su:s0 root root -- {MAGISKSYSTEMDIR}/magiskpolicy --live --magisk
     exec u:r:magisk:s0 root root -- {MAGISKSYSTEMDIR}/magiskpolicy --live --magisk
     exec u:r:update_engine:s0 root root -- {MAGISKSYSTEMDIR}/magiskpolicy --live --magisk
-    exec u:r:su:s0 root root -- {MAGISKSYSTEMDIR}/magisk --daemon
     exec u:r:su:s0 root root -- {MAGISKSYSTEMDIR}/magisk --post-fs-data
 on nonencrypted
     exec u:r:su:s0 root root -- {MAGISKSYSTEMDIR}/magisk --service
