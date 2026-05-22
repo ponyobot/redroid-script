@@ -40,7 +40,7 @@ on property:vold.decrypt=trigger_restart_framework
 on property:sys.boot_completed=1
     mkdir /data/adb/magisk 755
     exec u:r:su:s0 root root -- {MAGISKTMP}/magisk --auto-selinux --boot-complete
-    exec -- /system/bin/sh -c "if [ ! -e /data/data/io.github.huskydg.magisk ] ; then pm install /system/etc/init/magisk/magisk.apk ; fi"
+    exec -- /system/bin/sh -c "if [ ! -e /data/data/com.topjohnwu.magisk ] ; then pm install /system/etc/init/magisk/magisk.apk ; fi"
    
 on property:init.svc.zygote=restarting
     exec u:r:su:s0 root root -- {MAGISKTMP}/magisk --auto-selinux --zygote-restart
