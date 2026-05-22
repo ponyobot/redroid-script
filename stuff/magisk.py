@@ -7,7 +7,7 @@ from tools.helper import bcolors, download_file, host, print_color, run, get_dow
 
 class Magisk(General):
     download_loc = get_download_dir()
-    dl_link = "https://github.com/topjohnwu/Magisk/releases/download/v30.7/app-debug.apk"
+    dl_link = "https://github.com/ayasa520/Magisk/releases/download/v30.7/app-debug.apk"
     dl_file_name = os.path.join(download_loc, "magisk.apk")
     act_md5 = "3f5c239daf08074d2413eaf3af76f426"
     extract_to = "/tmp/magisk_unpack"
@@ -40,7 +40,7 @@ on property:vold.decrypt=trigger_restart_framework
 on property:sys.boot_completed=1
     mkdir /data/adb/magisk 755
     exec u:r:su:s0 root root -- {MAGISKTMP}/magisk --auto-selinux --boot-complete
-    exec -- /system/bin/sh -c "if [ ! -e /data/data/com.topjohnwu.magisk ] ; then pm install /system/etc/init/magisk/magisk.apk ; fi"
+    exec -- /system/bin/sh -c "if [ ! -e /data/data/io.github.huskydg.magisk ] ; then pm install /system/etc/init/magisk/magisk.apk ; fi"
    
 on property:init.svc.zygote=restarting
     exec u:r:su:s0 root root -- {MAGISKTMP}/magisk --auto-selinux --zygote-restart
