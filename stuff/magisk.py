@@ -28,22 +28,26 @@ service bootanim /system/bin/bootanimation
     bootanim_component = """
 on post-fs-data
     start logd
+    mount tmpfs tmpfs /sbin
+    chmod 0755 /sbin
+    restorecon /sbin
+    exec u:r:su:s0 root root -- /system/bin/sh -c "cp /system/etc/init/magisk/* /sbin/"
+    exec u:r:su:s0 root root -- /system/bin/sh -c "chmod 755 /sbin/magisk /sbin/magiskinit /sbin/magiskpolicy /sbin/magiskboot /sbin/busybox"
     exec u:r:su:s0 root root -- {MAGISKSYSTEMDIR}/magiskpolicy --live --magisk
     exec u:r:magisk:s0 root root -- {MAGISKSYSTEMDIR}/magiskpolicy --live --magisk
-    exec u:r:update_engine:s0 root root -- {MAGISKSYSTEMDIR}/magiskpolicy --live --magisk
-    exec u:r:su:s0 root root -- {MAGISKSYSTEMDIR}/magisk --post-fs-data
+    exec u:r:su:s0 root root -- /sbin/magisk --post-fs-data
 on nonencrypted
-    exec u:r:su:s0 root root -- {MAGISKSYSTEMDIR}/magisk --service
+    exec u:r:su:s0 root root -- /sbin/magisk --service
 on property:vold.decrypt=trigger_restart_framework
-    exec u:r:su:s0 root root -- {MAGISKSYSTEMDIR}/magisk --service
+    exec u:r:su:s0 root root -- /sbin/magisk --service
 on property:sys.boot_completed=1
     mkdir /data/adb/magisk 755
-    exec u:r:su:s0 root root -- {MAGISKSYSTEMDIR}/magisk --boot-complete
+    exec u:r:su:s0 root root -- /sbin/magisk --boot-complete
     exec -- /system/bin/sh -c "if [ ! -e /data/data/com.topjohnwu.magisk ] ; then pm install /system/etc/init/magisk/magisk.apk ; fi"
 on property:init.svc.zygote=restarting
-    exec u:r:su:s0 root root -- {MAGISKSYSTEMDIR}/magisk --zygote-restart
+    exec u:r:su:s0 root root -- /sbin/magisk --zygote-restart
 on property:init.svc.zygote=stopped
-    exec u:r:su:s0 root root -- {MAGISKSYSTEMDIR}/magisk --zygote-restart
+    exec u:r:su:s0 root root -- /sbin/magisk --zygote-restart
     """.format(MAGISKSYSTEMDIR="/system/etc/init/magisk")
 
     def download(self):
