@@ -9,7 +9,7 @@ class Magisk(General):
     download_loc = get_download_dir()
     dl_link = "https://github.com/ayasa520/Magisk/releases/download/v30.7/app-debug.apk"
     dl_file_name = os.path.join(download_loc, "magisk.apk")
-    act_md5 = "3f5c239daf08074d2413eaf3af76f426"
+    act_md5 = "e7bc18f6e9d4ebf7c91668ae25e2b8d7"
     extract_to = "/tmp/magisk_unpack"
     copy_dir = "./magisk"
     magisk_dir = os.path.join(copy_dir, "system", "etc", "init", "magisk")
